@@ -7,8 +7,8 @@ import uvicorn
 
 app = FastAPI()
 # model name which is used for text classification. 
-#model_name = "distilbert-base-uncased"
-model_name = "C:/Users/mcab/Projects/llms/data/news_classifier_finetune/checkpoint-228/"
+tokenizer_name = "./data/tokenizer/"
+model_name = "./data/finetuned_classifier_model/"
 
 # dataset name which is used for text classification.
 dataset_name = "ag_news"
@@ -21,6 +21,7 @@ data = dataset_loader.get_dataset()
 
 
 model_loader = SequenceClassificationLoader(model_name=model_name,
+                                            tokenizer_name=tokenizer_name,
                                             num_labels=len(labels),
                                             id2labels=id2labels,
                                             labels2id=labels2id)    

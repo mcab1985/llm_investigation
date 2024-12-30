@@ -4,14 +4,16 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 class SequenceClassificationLoader:
 
     model_name : str
+    tokenizer_name : str
     num_labels : int
     id2labels : dict
     labels2id : dict
     model : AutoModelForSequenceClassification
     tokenizer : AutoTokenizer
 
-    def __init__(self, model_name: str, num_labels:int, id2labels:dict, labels2id:dict ):
+    def __init__(self, model_name: str, tokenizer_name:str, num_labels:int, id2labels:dict, labels2id:dict ):
         self.model_name = model_name
+        self.tokenizer_name = tokenizer_name
         self.num_labels = num_labels
         self.id2labels = id2labels
         self.labels2id = labels2id
@@ -24,7 +26,7 @@ class SequenceClassificationLoader:
                                                                             num_labels = self.num_labels,
                                                                             id2label = self.id2labels,
                                                                             label2id = self.labels2id)
-            self.tokenizer = AutoTokenizer.from_pretrained(self.model_name) 
+            self.tokenizer = AutoTokenizer.from_pretrained(self.tokenizer_name) 
 
             for param in self.model.parameters():
                 param.requires_grad = True           
