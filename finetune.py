@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     tokenized_dataset = {}
     splits = ["train", "test"]
-    num_batches = [600, min(200, test_data_len)]
+    num_batches = [600, min(300, test_data_len)]
     for split, num_batch in zip(splits, num_batches):
         try:
             small_dataset = data[split].shuffle(seed=42).select(range(num_batch))
@@ -59,7 +59,7 @@ if __name__ == '__main__':
             evaluation_strategy="epoch",
             save_strategy="epoch",
             # Set the learning rate
-            num_train_epochs=20,
+            num_train_epochs=1,
             weight_decay=0.01,
             load_best_model_at_end=True,
         ),
