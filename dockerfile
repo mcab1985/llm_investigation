@@ -6,6 +6,10 @@ WORKDIR /app
 
 # Copy dependencies 
 COPY requirements.txt . 
+COPY classifier_app.py .
+COPY finetune.py . 
+COPY dataset_handler.py .
+COPY text_classifier.py .
 
 # Insall python dependencies
 RUN pip install --no-cache-dir -r requirements.txt && \
