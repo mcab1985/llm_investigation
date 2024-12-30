@@ -14,7 +14,7 @@ COPY text_classifier.py .
 # Insall python dependencies
 RUN pip install --no-cache-dir -r requirements.txt && \
     # Finetune destilbert model
-    python3 finetue.py
+    python3 finetune.py
 
 # Copy application
 COPY . . 
