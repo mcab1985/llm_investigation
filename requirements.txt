@@ -2,8 +2,8 @@ fastapi==0.112.2
 datasets==2.19.1
 accelerate==1.0.1
 numpy==1.26.4
-pytorch==2.3.1
-pytorch-cpu==2.3.1
+#pytorch==2.3.1
+#pytorch-cpu==2.3.1
 safetensors==0.4.5
 uvicorn==0.32.1
 tokenizers==0.20.1
