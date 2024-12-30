@@ -8,7 +8,9 @@ WORKDIR /app
 COPY requirements.txt . 
 
 # Insall python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && \
+    # Finetune destilbert model
+    python3 finetue.py
 
 # Copy application
 COPY . . 
