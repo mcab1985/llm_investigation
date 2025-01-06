@@ -1,5 +1,4 @@
 
-import torch
 from fastapi import FastAPI
 from text_classifier import SequenceClassificationLoader
 from dataset_handler import DatasetLoader
@@ -32,22 +31,13 @@ model_loader.load()
 async def home():
   return {"message": "Machine Learning service", "Possible labels" : labels}
 
-@app.get("/select data to classify")
+@app.get("/select data to classify/")
 async def data_in(input_text : str):
   try:
-    
 
-    #input_text = data["test"]["text"][sel_data]
-    encoded_input = model_loader.tokenize(text = input_text)            
-    model_output = model_loader.model_response(encoded_input=encoded_input)
-    # Make prediction
-    with torch.no_grad():
-        logits = model_output.logits
-        #probabilities = torch.nn.functional.softmax(logits, dim=1)
-        #predicted_class = torch.argmax(probabilities)
-        predicted_class =  logits.argmax().item()
-        res = { "Request" : input_text, 
-            "Classified Category" :  model_loader.model.config.id2label[predicted_class]} 
+    text_classification = model_loader.predict_label(text = input_text)
+    res = { "Request" : input_text, 
+            "Classified Category" : text_classification} 
     return res
   except Exception as e:
     print("Something went wrong: ", e)

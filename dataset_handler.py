@@ -6,7 +6,8 @@ class DatasetLoader:
     dataset_name : str  
     dataset : dict  
 
-    def __init__(self, dataset_name):
+    def __init__(self, dataset_name, splits = ["train", "test"]):
+        self.splits = splits
         self.dataset_name = dataset_name
 
     def id2labels_relation(self, labels: list)-> tuple[dict,dict]:
@@ -22,7 +23,8 @@ class DatasetLoader:
         """
         labels2id = {}
         id2labels = {}
-        if len(self.dataset.keys())>0:
+        if len(self.dataset.keys())>0:            
+            # [TODO] Adaption needed to handle other datasets with different keys and structure. 
             label_ids = np.unique(self.dataset["train"]["label"]).tolist()
             assert len(label_ids) == len(labels)
             id2labels = { id : label for id, label in zip(label_ids, labels )}
@@ -36,8 +38,8 @@ class DatasetLoader:
         """Loads the wanted dataset from hugging face."""
         ds = {}
         try:
-            splits = ["train", "test"]
-            ds = {split: ds for split, ds in zip(splits, load_dataset("ag_news", split=splits))}    
+            splits = self.splits
+            ds = {split: ds for split, ds in zip(splits, load_dataset(self.dataset_name, split=splits))}    
 
         except Exception as e:
             raise print("Dataset couldn't be loaded: \n #### \n", e)

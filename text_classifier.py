@@ -1,5 +1,5 @@
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
-
+import torch
 
 class SequenceClassificationLoader:
 
@@ -20,6 +20,10 @@ class SequenceClassificationLoader:
 
     
     def load(self):
+        """ 
+        Loads the defined model and tokenier from the given path. It is reommended to do finetuning and rather
+        load the finetuned model than the pretrained model from hugging face.
+        """
         try:
 
             self.model = AutoModelForSequenceClassification.from_pretrained(self.model_name,
@@ -36,11 +40,26 @@ class SequenceClassificationLoader:
 
 
     def tokenize(self, text: str):
+        """Tokenization of the given text using the loaded tekonizer. This can be used to generate the model response."""
 
         encoded_input = self.tokenizer(text, padding="max_length", truncation=True,  return_tensors='pt')
 
         return encoded_input
 
     def model_response(self, encoded_input):
+        """Generation of the model response using the encoded input."""
 
         return self.model(**encoded_input)
+    
+    def predict_label(self, text :str) ->str:
+        """Predicts the class using the given labels."""
+        encoded_input = self.tokenize(text = text)            
+        model_output = self.model_response(encoded_input=encoded_input)
+        # Make prediction
+        with torch.no_grad():
+            logits = model_output.logits
+            predicted_class =  logits.argmax().item()
+
+        return self.model.config.id2label[predicted_class]
+        
+
