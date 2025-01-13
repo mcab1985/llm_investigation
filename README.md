@@ -53,7 +53,6 @@ You should see the following views in your browser:
 |  Default view | Response view |
 | - | - |
 | ![default_window](./imgs/default_view.png) |![default_window](./imgs/response_view.png) |
-|
 
 
 ## Local usage
@@ -78,3 +77,7 @@ source env/bin/activate
 Install requirements using `requirements.txt`
 
 After that finetuing can be done. After that the app can be excecuted in the same way as it is done within the docker container (see above)
+
+## Concept to host llms
+
+A description which infrastructure is need to host llm applications and deploy docker images is described [here](./Concept_Hosting/Concept.md)

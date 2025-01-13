@@ -6,7 +6,7 @@ like LLama or others.
 
 ## Overview
 
-![Concept](imgs/lbbw_konzept.drawio.png)
+![Concept](../imgs/lbbw_konzept.drawio.png)
 
 Overview of a concept to build a infrastructure where LLM users have access to different LLM apps. 
 E.g. a text classifier or a chatbot. 
